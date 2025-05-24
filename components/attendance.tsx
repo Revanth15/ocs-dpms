@@ -364,7 +364,7 @@ export default function AttendancePage() {
         </Card>
       </div>
 
-      <div className="w-1/4 sticky top-6">
+      <div className="w-1/4 sticky top-20">
         <div className="bg-white shadow-md rounded-lg p-4 space-y-4 border">
           <h3 className="text-lg font-semibold">Add Absent Participant</h3>
 

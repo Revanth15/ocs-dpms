@@ -226,7 +226,7 @@ export function RehearsalsTable({ rehearsals, onRehearsalCreated }: RehearsalsTa
               filteredRehearsals.map((rehearsal) => (
                 <TableRow key={rehearsal.id}>
                   <TableCell>{rehearsal.name}</TableCell>
-                  <TableCell>{format(new Date(rehearsal.date), "PPP")}</TableCell>
+                  <TableCell>{format(new Date(rehearsal.date), "PPP p")}</TableCell>
                   <TableCell>{rehearsal.duration} hrs</TableCell>
                   <TableCell>{rehearsal.notes || "-"}</TableCell>
                 </TableRow>
