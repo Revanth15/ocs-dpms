@@ -28,6 +28,9 @@ import {
 
   import { toast } from "sonner";
 
+import { Alert, AlertDescription, AlertTitle } from "./ui/alert";
+import { AlertCircle } from "lucide-react";
+
 interface AttendanceEntry {
   participantId: string;
   participantName: string;
@@ -271,7 +274,14 @@ export default function AttendancePage() {
       <div className="w-3/4 overflow-x-auto">
         <h2 className="text-xl font-semibold mb-4">Attendance List</h2>
 
-        <Card className="p-2">
+        <Alert >
+            <AlertCircle className="h-4 w-4" />
+            <AlertTitle>Attendance Instructions</AlertTitle>
+            <AlertDescription>
+              Only select participants who are absent. All others will be marked as present automatically.
+            </AlertDescription>
+          </Alert>
+        <Card className="p-2 mt-2">
             <Table>
             <TableHeader>
                 <TableRow>
