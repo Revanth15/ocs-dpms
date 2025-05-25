@@ -213,24 +213,27 @@ export default function AttendancePage() {
   
     setLoading(true);
     try {
-      const modifiedRecords: Attendance[] = attendanceList.filter((a) => {
-        const original = originalAttendanceMap[a.participantId];
-        return (
-          !original ||
-          original.periodsAbsent !== a.periodsAbsent ||
-          original.hoursAbsent !== a.hoursAbsent ||
-          original.absenceReason !== a.absenceReason ||
-          original.absenceCategory !== a.absenceCategory
-        );
-      }).map((a) => ({
-        participantId: a.participantId,
-        formation: a.participantFormation,
-        contingent: a.participantContingent,
-        periodsAbsent: a.periodsAbsent,
-        hoursAbsent: a.hoursAbsent,
-        absenceReason: a.absenceReason || "",
-        absenceCategory: a.absenceCategory || ""
-      }));
+      const modifiedRecords: Attendance[] = attendanceList
+        .filter((a) => {
+          const original = originalAttendanceMap[a.participantId]
+          return (
+            !original ||
+            original.periodsAbsent !== a.periodsAbsent ||
+            original.hoursAbsent !== a.hoursAbsent ||
+            original.absenceReason !== a.absenceReason ||
+            original.absenceCategory !== a.absenceCategory
+          )
+        })
+        .map((a) => ({
+          participantId: a.participantId,
+          participantName: a.participantName,
+          formation: a.participantFormation,
+          contingent: a.participantContingent,
+          periodsAbsent: a.periodsAbsent,
+          hoursAbsent: a.hoursAbsent,
+          absenceReason: a.absenceReason || "",
+          absenceCategory: a.absenceCategory || "",
+        }))
   
       if (modifiedRecords.length === 0) {
         toast.info("No changes to save.")
