@@ -323,12 +323,12 @@ export default function AttendancePage() {
         </div>
 
         <div className="w-1/4 sticky top-20">
-          <Link href="/rehearsals">
-            <Button variant="outline" className="mb-2">
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Back
-            </Button>
-          </Link>
+        <Link href={`/rehearsals/${rehearsalId}`}>
+          <Button variant="outline" className="mb-2">
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            Back
+          </Button>
+        </Link>
           <div className="bg-white shadow-md rounded-lg p-4 space-y-4 border">
             <h3 className="text-lg font-semibold">Add Absent Participant</h3>
 
