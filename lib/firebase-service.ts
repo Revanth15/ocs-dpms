@@ -38,6 +38,9 @@ export interface Rehearsal {
 
 export interface Attendance {
   participantId: string
+  participantName: string
+  contingent: string
+  formation: string
   hoursAbsent: number
   periodsAbsent: number
   absenceReason: string

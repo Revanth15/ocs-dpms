@@ -34,6 +34,8 @@ import { AlertCircle } from "lucide-react";
 interface AttendanceEntry {
   participantId: string;
   participantName: string;
+  participantFormation: string;
+  participantContingent: string;
   periodsAbsent: number;
   hoursAbsent: number;
   absenceReason?: string;
@@ -97,6 +99,8 @@ export default function AttendancePage() {
         return {
           participantId: p.id!,
           participantName: p.name,
+          participantFormation: p.formation,
+          participantContingent: p.contingent,
           periodsAbsent: record.periodsAbsent,
           hoursAbsent: record.hoursAbsent,
           absenceReason: record.absenceReason,
@@ -220,6 +224,8 @@ export default function AttendancePage() {
         );
       }).map((a) => ({
         participantId: a.participantId,
+        formation: a.participantFormation,
+        contingent: a.participantContingent,
         periodsAbsent: a.periodsAbsent,
         hoursAbsent: a.hoursAbsent,
         absenceReason: a.absenceReason || "",

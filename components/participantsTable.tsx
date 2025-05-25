@@ -53,13 +53,24 @@ export function ParticipantsTable({
     const [editingId, setEditingId] = useState<string | null>(null);
     const [editFormation, setEditFormation] = useState<string>("");
     const [editContingent, setEditContingent] = useState<string>("");
+    const [sortDirection, setSortDirection] = useState<"asc" | "desc" | null>(null);
 
-  const filteredParticipants = participants.filter((participant) => {
-    const matchesSearch = participant.name.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesFormation = formationFilter ? participant.formation === formationFilter : true;
-    const matchesContingent = contingentFilter ? participant.contingent === contingentFilter : true;
-    return matchesSearch && matchesFormation && matchesContingent;
-  });
+    const filteredParticipants = participants
+    .filter((participant) => {
+      const matchesSearch = participant.name.toLowerCase().includes(searchQuery.toLowerCase());
+      const matchesFormation = formationFilter ? participant.formation === formationFilter : true;
+      const matchesContingent = contingentFilter ? participant.contingent === contingentFilter : true;
+      return matchesSearch && matchesFormation && matchesContingent;
+    })
+    .sort((a, b) => {
+      if (sortDirection === "asc") {
+        return a.totalPeriodsAbsent - b.totalPeriodsAbsent;
+      }
+      if (sortDirection === "desc") {
+        return b.totalPeriodsAbsent - a.totalPeriodsAbsent;
+      }
+      return 0; // no sorting
+    });
 
   const handleDeleteParticipant = async (id: string) => {
     if (window.confirm("Are you sure you want to delete this participant?")) {
@@ -91,6 +102,12 @@ export function ParticipantsTable({
       console.error("Failed to update participant:", err);
       setError("Failed to update participant");
     }
+  };
+
+  const toggleSortDirection = () => {
+    setSortDirection((prev) =>
+      prev === "asc" ? "desc" : prev === "desc" ? null : "asc"
+    );
   };
 
   return (
@@ -145,8 +162,11 @@ export function ParticipantsTable({
               <TableHead>Name</TableHead>
               <TableHead>Formation</TableHead>
               <TableHead>Contingent</TableHead>
-              <TableHead>Absence</TableHead>
-              {/* <TableHead>Status</TableHead> */}
+              <TableHead onClick={toggleSortDirection} className="cursor-pointer select-none">
+                Absence
+                {sortDirection === "asc" && " 🔼"}
+                {sortDirection === "desc" && " 🔽"}
+              </TableHead>
               <TableHead className="w-[80px]"></TableHead>
             </TableRow>
           </TableHeader>
@@ -216,23 +236,6 @@ export function ParticipantsTable({
                         )
                     })()}
                     </TableCell>
-                  {/* <TableCell>
-                    {(() => {
-                        const max = settings?.maxPeriodsAllowed || 3
-                        const absent = participant.totalPeriodsAbsent
-                        const ratio = absent / max
-
-                        if (ratio >= 1) {
-                        return <Badge className="bg-black text-white">Not Allowed to Participate</Badge>
-                        } else if (ratio > 2 / 3) {
-                        return <Badge variant="destructive">High Absence</Badge>
-                        } else if (ratio > 1 / 3) {
-                        return <Badge className="bg-yellow-500 text-black">Moderate Absence</Badge>
-                        } else {
-                        return <Badge variant="success">Low Absence</Badge>
-                        }
-                    })()}
-                    </TableCell> */}
                   <TableCell className="flex items-center gap-2">
                     {editingId === participant.id ? (
                         <>

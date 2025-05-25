@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { useRouter } from "next/navigation";
 import { format } from "date-fns";
 import { Rehearsal, createRehearsal } from "@/lib/firebase-service";
 import {
@@ -31,6 +32,7 @@ type SortKey = "date" | "duration" | null;
 type SortDirection = "asc" | "desc";
 
 export function RehearsalsTable({ rehearsals, onRehearsalCreated }: RehearsalsTableProps) {
+  const router = useRouter();
   const [dialogOpen, setDialogOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -213,6 +215,7 @@ export function RehearsalsTable({ rehearsals, onRehearsalCreated }: RehearsalsTa
                 Duration{renderSortIndicator("duration")}
               </TableHead>
               <TableHead>Notes</TableHead>
+              <TableHead>Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -229,6 +232,14 @@ export function RehearsalsTable({ rehearsals, onRehearsalCreated }: RehearsalsTa
                   <TableCell>{format(new Date(rehearsal.date), "PPP p")}</TableCell>
                   <TableCell>{rehearsal.duration} hrs</TableCell>
                   <TableCell>{rehearsal.notes || "-"}</TableCell>
+                  <TableCell>
+                    <Button
+                      variant="outline"
+                      onClick={() => router.push(`/rehearsals/${rehearsal.id}`)}
+                    >
+                      View
+                    </Button>
+                  </TableCell>
                 </TableRow>
               ))
             )}

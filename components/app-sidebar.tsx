@@ -25,11 +25,11 @@ const items = [
     url: "/participants",
     icon: Users,
   },
-  {
-    title: "Attendance",
-    url: "/attendance",
-    icon: ListCheck,
-  },
+  // {
+  //   title: "Attendance",
+  //   url: "/attendance",
+  //   icon: ListCheck,
+  // },
   {
     title: "Rehearsals",
     url: "/rehearsals",
